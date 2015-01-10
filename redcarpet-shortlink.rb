@@ -73,13 +73,3 @@ class HTMLWithShortlinks < Redcarpet::Render::HTML
     "<a href=\"#{link}\">#{content}</a>"
   end
 end
-
-default = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
-wiki = Redcarpet::Markdown.new(HTMLWithShortlinks, extensions = {
-                              no_intra_emphasis: true,
-                              strikethrough: true,
-                              footnotes: true
-                              })
-
-# magic ARGF
-puts wiki.render(ARGF.read)
