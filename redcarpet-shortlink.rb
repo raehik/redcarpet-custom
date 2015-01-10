@@ -46,8 +46,13 @@ class HTMLWithShortlinks < Redcarpet::Render::HTML
     # retrieve URL of shortlink
     link_url = shortlinks[link_name]
 
-    # set title
+    # set page name from title if it exists, else content
     if title.to_s.empty?
+      # You would think we need to capitalise the first letter of the
+      # page, but Wikipedia at least is smart enough to recognise 'Word'
+      # and 'word' as the same page, even though any other
+      # capitalisation makes Wikipedia treat it as a separate page. So
+      # it makes our job easier.
       page = content
     else
       page = title
@@ -59,6 +64,7 @@ class HTMLWithShortlinks < Redcarpet::Render::HTML
     url(shortlink, page_title, content)
   end
 
+  # helper methods, not overriding anything
   def url(link, title, content)
     "<a href=\"#{link}\" title=\"#{title}\">#{content}</a>"
   end
