@@ -9,5 +9,6 @@ puts Redcarpet::Markdown.new(HTMLWithShortlinks, extensions = {
   no_intra_emphasis: true,
   strikethrough: true,
   footnotes: true,
-  autolink: true
+  autolink: true,
+  fenced_code_blocks: true
 }).render(ARGF.read)
