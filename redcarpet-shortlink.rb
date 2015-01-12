@@ -14,6 +14,7 @@ class HTMLWithShortlinks < Redcarpet::Render::HTML
     identifier = "!"
     shortlinks = {
       Wikipedia: "http://en.wikipedia.org/wiki/",
+      GitHub: "https://github.com/"
     }
 
     # if no link, link = content
