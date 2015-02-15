@@ -17,9 +17,10 @@ class HTMLWithShortlinks < Redcarpet::Render::HTML
       GitHub: "https://github.com/"
     }
 
-    # if no link, link = content
+    # if no link, link = absolute content
     if link.to_s.empty?
-      return url_no_title(content, content)
+      #return url_no_title(content, content)
+      return url("/#{content}", "Go to page: #{content}", content)
     end
 
     # if no identifier at start, normal link
