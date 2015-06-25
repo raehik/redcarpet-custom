@@ -1,15 +1,34 @@
 #!/usr/bin/env ruby
 #
-# Render Markdown to HTML with some special syntax.
+# Render Markdown to HTML with some special syntax & features.
 #
 
 require "redcarpet"
+require "pygments"
 
 class HTMLWithShortlinks < Redcarpet::Render::HTML
-  # use SmartPants postprocessing
+
+  # use SmartyPants postprocessing
+  # renders things a little cooler e.g. double hyphen -> dash
   include Redcarpet::Render::SmartyPants
 
+  # override block code method to do syntax highlighting
+  # requires Pygments (Python) and pygments.rb
+  # try `pip install pygments` and `gem install pygments.rb`
+  #
+  # syntax:
+  # ```language
+  # code
+  # ```
+  def block_code(code, language)
+    Pygments.highlight(code, lexer: language)
+  end
+
   # override link method to check for shortlinks
+  # EDIT: disabled. ShortLinks lose meaning without this renderer, so
+  # I'm trying to work around the problem instead of solving it like
+  # this.
+=begin
   def link(link, title, content)
     identifier = "!"
     shortlinks = {
@@ -74,4 +93,5 @@ class HTMLWithShortlinks < Redcarpet::Render::HTML
   def url_no_title(link, content)
     "<a href=\"#{link}\">#{content}</a>"
   end
+=end
 end

@@ -1,9 +1,11 @@
 #!/usr/bin/env ruby
 #
-# gfd, need a Ruby wrapper for this BS
+# Ruby wrapper for my custom Redcarpet renderer.
+#
+# Required to use render options in Jekyll.
 #
 
-require '/home/raehik/bin/redcarpet-shortlink.rb'
+require ENV['HOME'] + '/bin/redcarpet-custom.rb'
 
 puts Redcarpet::Markdown.new(
   HTMLWithShortlinks.new(
