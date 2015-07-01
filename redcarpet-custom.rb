@@ -6,7 +6,7 @@
 require "redcarpet"
 require "pygments"
 
-class HTMLWithShortlinks < Redcarpet::Render::HTML
+class HTMLCustom < Redcarpet::Render::HTML
 
   # use SmartyPants postprocessing
   # renders things a little cooler e.g. double hyphen -> dash
@@ -24,23 +24,40 @@ class HTMLWithShortlinks < Redcarpet::Render::HTML
     Pygments.highlight(code, lexer: language)
   end
 
+  # helper methods, not overriding anything
+  def url(link, title, content)
+    "<a href=\"#{link}\" title=\"#{title}\">#{content}</a>"
+  end
+
+  def url_no_title(link, content)
+    "<a href=\"#{link}\">#{content}</a>"
+  end
+
   # override link method to check for shortlinks
   # EDIT: disabled. ShortLinks lose meaning without this renderer, so
   # I'm trying to work around the problem instead of solving it like
   # this.
-=begin
   def link(link, title, content)
-    identifier = "!"
-    shortlinks = {
-      Wikipedia: "http://en.wikipedia.org/wiki/",
-      GitHub: "https://github.com/"
-    }
 
     # if no link, link = absolute content
     if link.to_s.empty?
       #return url_no_title(content, content)
       return url("/#{content}", "Go to page: #{content}", content)
     end
+
+    if title.to_s.empty?
+      return url_no_title(link, content)
+    else
+      return url(link, title, content)
+    end
+  end
+
+=begin
+    identifier = "!"
+    shortlinks = {
+      Wikipedia: "http://en.wikipedia.org/wiki/",
+      GitHub: "https://github.com/"
+    }
 
     # if no identifier at start, normal link
     # Annoyingly, we can't use `super`, due to redcarpet being coded in
@@ -83,15 +100,6 @@ class HTMLWithShortlinks < Redcarpet::Render::HTML
     page_title = "#{link_name}: #{page}"
 
     url(shortlink, page_title, content)
-  end
-
-  # helper methods, not overriding anything
-  def url(link, title, content)
-    "<a href=\"#{link}\" title=\"#{title}\">#{content}</a>"
-  end
-
-  def url_no_title(link, content)
-    "<a href=\"#{link}\">#{content}</a>"
   end
 =end
 end

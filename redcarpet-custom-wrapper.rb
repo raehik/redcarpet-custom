@@ -8,7 +8,7 @@
 require ENV['HOME'] + '/bin/redcarpet-custom.rb'
 
 puts Redcarpet::Markdown.new(
-  HTMLWithShortlinks.new(
+  HTMLCustom.new(
     render_options = { with_toc_data: true}),
   extensions = {
     no_intra_emphasis: true,
