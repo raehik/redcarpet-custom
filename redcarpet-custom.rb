@@ -51,6 +51,7 @@ class HTMLCustom < Redcarpet::Render::HTML
       return url(link, title, content)
     end
   end
+end
 
 =begin
     identifier = "!"
@@ -102,4 +103,3 @@ class HTMLCustom < Redcarpet::Render::HTML
     url(shortlink, page_title, content)
   end
 =end
-end
