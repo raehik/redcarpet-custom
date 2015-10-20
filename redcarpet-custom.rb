@@ -21,7 +21,14 @@ class HTMLCustom < Redcarpet::Render::HTML
   # code
   # ```
   def block_code(code, language)
-    Pygments.highlight(code, lexer: language)
+    if language.to_s.empty?
+      # if no language supplied, assume normal text
+      lang = "text"
+    else
+      lang = language
+    end
+
+    Pygments.highlight(code, lexer: lang)
   end
 
   # helper methods, not overriding anything
@@ -42,7 +49,10 @@ class HTMLCustom < Redcarpet::Render::HTML
     # if no link, link = absolute content
     if link.to_s.empty?
       #return url_no_title(content, content)
-      return url("/#{content}", "Go to page: #{content}", content)
+      # emulate Gwern's setup
+      #return url("/#{content}", "Go to page: #{content}", content)
+      # just make a basic link
+      return url_no_title(content, content)
     end
 
     if title.to_s.empty?
