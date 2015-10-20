@@ -41,11 +41,10 @@ class HTMLCustom < Redcarpet::Render::HTML
   end
 
   # override link method to check for shortlinks
-  # EDIT: disabled. ShortLinks lose meaning without this renderer, so
+  # EDIT: disabled. Shortlinks lose meaning without this renderer, so
   # I'm trying to work around the problem instead of solving it like
   # this.
   def link(link, title, content)
-
     # if no link, link = absolute content
     if link.to_s.empty?
       #return url_no_title(content, content)
@@ -63,7 +62,9 @@ class HTMLCustom < Redcarpet::Render::HTML
   end
 end
 
+# old shortlinks method
 =begin
+  def link(link, title, content)
     identifier = "!"
     shortlinks = {
       Wikipedia: "http://en.wikipedia.org/wiki/",
